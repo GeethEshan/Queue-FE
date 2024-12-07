@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import './Receptionist.css';
 
 // Connect to the socket server
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect('https://visiting-gilda-sliitq-471f8cef.koyeb.app/');
 
 const Receptionist = () => {
   const [membershipNumber, setMembershipNumber] = useState('');
@@ -20,7 +20,7 @@ const Receptionist = () => {
   useEffect(() => {
     const fetchSections = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/sections');
+        const res = await axios.get('https://visiting-gilda-sliitq-471f8cef.koyeb.app/sections');
         setSections(res.data);
       } catch (err) {
         console.error('Error fetching sections:', err);
@@ -33,7 +33,7 @@ const Receptionist = () => {
 
   const fetchQueues = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/queues');
+      const res = await axios.get('https://visiting-gilda-sliitq-471f8cef.koyeb.app/queues');
       const groupedQueues = res.data.reduce((acc, queue) => {
         if (!acc[queue.section]) acc[queue.section] = [];
         acc[queue.section].push(queue);
@@ -76,7 +76,7 @@ const Receptionist = () => {
     }
 
     try {
-      const res = await axios.get(`http://localhost:5000/customers/${membershipNumber}`);
+      const res = await axios.get(`https://visiting-gilda-sliitq-471f8cef.koyeb.app/customers/${membershipNumber}`);
       if (res.data) {
         setCustomerData(res.data);
         setError('');
@@ -100,7 +100,7 @@ const Receptionist = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/queue', { membershipNumber, section });
+      await axios.post('https://visiting-gilda-sliitq-471f8cef.koyeb.app/queue', { membershipNumber, section });
       setSuccess('Customer added to queue successfully!');
       fetchQueues();
       setShowModal(false); // Close the modal after adding to the queue
@@ -210,9 +210,9 @@ const Receptionist = () => {
 
             return (
               <div key={queueGroup.section} className="queue-group">
-                 <h3 style={{ color: 'black', textAlign: 'center' }}>
-            {queueGroup.section}
-          </h3>
+                <h3 style={{ color: 'black', textAlign: 'center' }}>
+                  {queueGroup.section}
+                </h3>
                 <ul>
                   {customersForPage.length > 0 ? (
                     customersForPage.map((item) => (
@@ -229,15 +229,15 @@ const Receptionist = () => {
                     <button onClick={() => handlePagination(queueGroup.section, 'prev')}>Previous</button>
                   )}
                   <span
-  style={{
-    display: 'block',
-    textAlign: 'center',
-    color: 'black',
-    margin: '0 auto'
-  }}
->
- Page {currentPage}
-</span>
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      color: 'black',
+                      margin: '0 auto'
+                    }}
+                  >
+                    Page {currentPage}
+                  </span>
 
                   {showNextButton && (
                     <button onClick={() => handlePagination(queueGroup.section, 'next')}>Next</button>
