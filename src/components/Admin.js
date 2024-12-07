@@ -11,15 +11,18 @@ const Admin = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const sectionsPerPage = 4;
 
+    // Replace the local API base URL with the new backend URL
+    const apiBaseUrl = 'https://visiting-gilda-sliitq-471f8cef.koyeb.app/';
+
     // Fetch sections
     useEffect(() => {
-        axios.get('http://localhost:5000/sections')
+        axios.get(`${apiBaseUrl}sections`)
             .then(res => setSections(res.data))
             .catch(err => setError('Error fetching sections: ' + err.message));
     }, []);
 
     const addSection = () => {
-        axios.post('http://localhost:5000/sections', { name: sectionName })
+        axios.post(`${apiBaseUrl}sections`, { name: sectionName })
             .then(res => {
                 setSections([...sections, res.data]);
                 setSectionName('');
@@ -28,7 +31,7 @@ const Admin = () => {
     };
 
     const deleteSection = (id) => {
-        axios.delete(`http://localhost:5000/sections/${id}`)
+        axios.delete(`${apiBaseUrl}sections/${id}`)
             .then(() => {
                 setSections(sections.filter(s => s._id !== id));
             })
@@ -46,7 +49,7 @@ const Admin = () => {
     };
 
     const saveEdit = (id) => {
-        axios.put(`http://localhost:5000/sections/${id}`, { name: editingName })
+        axios.put(`${apiBaseUrl}sections/${id}`, { name: editingName })
             .then(() => {
                 const updatedSections = sections.map(section =>
                     section._id === id ? { ...section, name: editingName } : section
@@ -128,31 +131,31 @@ const Admin = () => {
             </ul>
 
             <div className="pagination" style={{ color: 'white' }}>
-  {currentPage > 1 && (
-    <button
-      className="pagination-btn"
-      onClick={handlePreviousPage}
-      style={{ color: 'white', backgroundColor: 'transparent', border: 'none' }}
-    >
-      Previous
-    </button>
-  )}
-  <span
-    className="current-page"
-    style={{ color: 'white' }}
-  >
-    Page {currentPage} of {totalPages}
-  </span>
-  {currentPage < totalPages && (
-    <button
-      className="pagination-btn"
-      onClick={handleNextPage}
-      style={{ color: 'white', backgroundColor: 'transparent', border: 'none' }}
-    >
-      Next
-    </button>
-  )}
-</div>
+                {currentPage > 1 && (
+                    <button
+                        className="pagination-btn"
+                        onClick={handlePreviousPage}
+                        style={{ color: 'white', backgroundColor: 'transparent', border: 'none' }}
+                    >
+                        Previous
+                    </button>
+                )}
+                <span
+                    className="current-page"
+                    style={{ color: 'white' }}
+                >
+                    Page {currentPage} of {totalPages}
+                </span>
+                {currentPage < totalPages && (
+                    <button
+                        className="pagination-btn"
+                        onClick={handleNextPage}
+                        style={{ color: 'white', backgroundColor: 'transparent', border: 'none' }}
+                    >
+                        Next
+                    </button>
+                )}
+            </div>
 
         </div>
     );
