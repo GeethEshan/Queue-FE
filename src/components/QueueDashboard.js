@@ -3,14 +3,14 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import './QueueDashboard.css';
 
-const socket = io.connect("http://localhost:5000");
+const socket = io.connect("https://visiting-gilda-sliitq-471f8cef.koyeb.app/");
 
 const QueueDashboard = () => {
   const [queues, setQueues] = useState([]);
 
   const fetchQueues = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/queues');
+      const res = await axios.get('https://visiting-gilda-sliitq-471f8cef.koyeb.app/queues');
       const groupedQueues = res.data.reduce((acc, queue) => {
         if (!acc[queue.section]) acc[queue.section] = [];
         acc[queue.section].push(queue);
@@ -50,7 +50,7 @@ const QueueDashboard = () => {
       );
 
       setTimeout(async () => {
-        const res = await axios.get('http://localhost:5000/queues');
+        const res = await axios.get('https://visiting-gilda-sliitq-471f8cef.koyeb.app/queues');
         const groupedQueues = res.data.reduce((acc, queue) => {
           if (!acc[queue.section]) acc[queue.section] = [];
           acc[queue.section].push(queue);
