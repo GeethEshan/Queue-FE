@@ -14,7 +14,7 @@ const Section = () => {
     // Fetch the queue for the specific section dynamically
     const fetchQueue = async () => {
       try {
-        const res = await axios.get(`https://visiting-gilda-sliitq-471f8cef.koyeb.app//queue/${section}`);
+        const res = await axios.get(`https://visiting-gilda-sliitq-471f8cef.koyeb.app/queue/${section}`);
         setQueue(res.data);
       } catch (err) {
         console.error('Error fetching queue:', err);
@@ -26,7 +26,7 @@ const Section = () => {
 
   const handleFinish = (id) => {
     // Delete the customer from the queue
-    axios.delete(`https://visiting-gilda-sliitq-471f8cef.koyeb.app//queue/${id}`).then(() => {
+    axios.delete(`https://visiting-gilda-sliitq-471f8cef.koyeb.app/queue/${id}`).then(() => {
       socket.emit('queue-updated', { section });
       setQueue(queue.filter(item => item._id !== id)); // Remove customer from local queue
     });
@@ -36,7 +36,7 @@ const Section = () => {
     // Listen for queue updates through socket.io
     socket.on('queue-updated', ({ section: updatedSection }) => {
       if (updatedSection === section) {
-        axios.get(`https://visiting-gilda-sliitq-471f8cef.koyeb.app//queue/${section}`).then(res => setQueue(res.data));
+        axios.get(`https://visiting-gilda-sliitq-471f8cef.koyeb.app/queue/${section}`).then(res => setQueue(res.data));
       }
     });
 
