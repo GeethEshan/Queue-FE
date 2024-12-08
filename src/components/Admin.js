@@ -16,13 +16,13 @@ const Admin = () => {
 
     // Fetch sections
     useEffect(() => {
-        axios.get(`${apiBaseUrl}sections`)
+        axios.get(`${apiBaseUrl}/sections`)
             .then(res => setSections(res.data))
             .catch(err => setError('Error fetching sections: ' + err.message));
     }, []);
 
     const addSection = () => {
-        axios.post(`${apiBaseUrl}sections`, { name: sectionName })
+        axios.post(`${apiBaseUrl}/sections`, { name: sectionName })
             .then(res => {
                 setSections([...sections, res.data]);
                 setSectionName('');
