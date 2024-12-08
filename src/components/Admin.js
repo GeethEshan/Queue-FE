@@ -22,7 +22,7 @@ const Admin = () => {
     }, []);
 
     const addSection = () => {
-        axios.post(`${apiBaseUrl}/sections`, { name: sectionName })
+        axios.post(`${apiBaseUrl}sections`, { name: sectionName })
             .then(res => {
                 setSections([...sections, res.data]);
                 setSectionName('');
@@ -49,7 +49,7 @@ const Admin = () => {
     };
 
     const saveEdit = (id) => {
-        axios.put(`${apiBaseUrl}/sections/${id}`, { name: editingName })
+        axios.put(`${apiBaseUrl}sections/${id}`, { name: editingName })
             .then(() => {
                 const updatedSections = sections.map(section =>
                     section._id === id ? { ...section, name: editingName } : section
