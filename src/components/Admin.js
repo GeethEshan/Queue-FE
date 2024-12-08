@@ -31,7 +31,7 @@ const Admin = () => {
     };
 
     const deleteSection = (id) => {
-        axios.delete(`${apiBaseUrl}sections/${id}`)
+        axios.delete(`${apiBaseUrl}/sections/${id}`)
             .then(() => {
                 setSections(sections.filter(s => s._id !== id));
             })
@@ -49,7 +49,7 @@ const Admin = () => {
     };
 
     const saveEdit = (id) => {
-        axios.put(`${apiBaseUrl}sections/${id}`, { name: editingName })
+        axios.put(`${apiBaseUrl}/sections/${id}`, { name: editingName })
             .then(() => {
                 const updatedSections = sections.map(section =>
                     section._id === id ? { ...section, name: editingName } : section
